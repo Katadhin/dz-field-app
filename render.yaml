@@ -19,6 +19,15 @@ services:
         fromDatabase:
           name: dz-field-app-db
           property: connectionString
+      # Signs the admin session cookie. Render generates a strong value; you
+      # never see or paste it.
+      - key: SESSION_SECRET
+        generateValue: true
+      # The passcode for the /admin captures view. Render prompts you to set
+      # this in the dashboard; it is not stored in the repo. Leave it unset to
+      # keep /admin closed.
+      - key: ADMIN_PASSCODE
+        sync: false
 
 databases:
   - name: dz-field-app-db

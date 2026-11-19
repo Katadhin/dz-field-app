@@ -1,6 +1,6 @@
 // Minimal service worker: makes the app installable and loads its shell offline.
 // Captures are held in the page's own outbox (localStorage), not here.
-const CACHE = "dz-field-shell-v1";
+const CACHE = "dz-field-shell-v2";
 const SHELL = ["/", "/icon-192.png", "/manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {
@@ -26,14 +26,18 @@ self.addEventListener("fetch", (event) => {
   if (url.pathname.startsWith("/api/")) return;
 
   if (req.mode === "navigate") {
+    // Only the capture home is kept for offline. Admin and other pages stay
+    // live-only so a stale copy never overwrites the home shell.
     event.respondWith(
       fetch(req)
         .then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put("/", copy));
+          if (url.pathname === "/") {
+            const copy = res.clone();
+            caches.open(CACHE).then((c) => c.put("/", copy));
+          }
           return res;
         })
-        .catch(() => caches.match("/"))
+        .catch(() => (url.pathname === "/" ? caches.match("/") : Response.error()))
     );
     return;
   }

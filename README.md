@@ -2,7 +2,7 @@
 
 A phone-first app for dz retail reps to log Food Lion store visits by voice, capture photos, track follow-ups, and produce vendor reports. Reps talk after a visit; the app turns that talk into clean, vendor-tagged records.
 
-This repo is at **Session 1**: a live landing page in the dz colors with a connected Postgres database. The build order and architecture live in `docs/`.
+This repo is the **field capture app**: an installable phone web app where a rep logs a store visit by voice or text. Captures save to Postgres, and when there is no signal they hold in an on-phone outbox and upload when it returns. Sign-in, the sorter, photos and reports come next. The build order and architecture live in `docs/`.
 
 ## The stack
 
@@ -16,7 +16,7 @@ cp .env.example .env.local   # optional: set a local DATABASE_URL
 npm run dev
 ```
 
-Open http://localhost:3000. Without a database the page still loads and shows "No database configured yet"; with one it shows "Database connected".
+Open http://localhost:3000, enter your name, and log a visit. Without a database the capture queues in the browser outbox; with one it saves to Postgres. Voice input uses the phone's own speech-to-text and needs no key.
 
 ## Deploy to Render
 

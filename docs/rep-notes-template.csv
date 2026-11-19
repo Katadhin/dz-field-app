@@ -1,0 +1,11 @@
+id,rep_name,store_number,visit_date,note_type,raw_note,notes_for_tuning
+EXAMPLE-1,EXAMPLE rep,2345,2026-11-18,voice,"EXAMPLE ONLY, replace me: talked to the deli manager Tina, she said the Bar-S chorizo has been out for a week and she'd reorder. Grabbed a shot of the empty endcap. Oscar Mayer reset looked good.","two vendors in one note (Bar-S, Oscar Mayer); a follow-up to track; a photo"
+EXAMPLE-2,EXAMPLE rep,10,2026-11-18,text,"EXAMPLE ONLY, replace me: quick stop, nothing major, bacon set full, nobody around to talk to","a near-empty note; should the sorter flag it as low-value?"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,

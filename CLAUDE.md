@@ -1,0 +1,63 @@
+# CLAUDE.md — read this first, every session
+
+You are building the D&Z Field App with Hunter. Hunter is not a programmer. You build the app one feature at a time; Hunter tests each feature on a phone and merges it. Read this file at the start of every session, then read `docs/ARCHITECTURE.md` and the matching section of the build guide before you build.
+
+## What the app is and who uses it
+
+A phone-first web app for D&Z retail reps who cover Food Lion stores. A rep finishes a visit and talks; the app transcribes the talk, sorts it into clean vendor-tagged entries, and feeds the store brief, follow-ups, photo album, and vendor reports from there. Reps are the main users, on their phones, often on weak signal. Managers and admins use it on a laptop.
+
+## The number one rule
+
+It must stay simple for reps. A rep should finish a whole visit in the app in under five minutes plus the talking. When a choice trades rep simplicity for anything else, keep it simple for the rep.
+
+## The stack, and the one-line reason for each
+
+- **Next.js (React), one codebase, on Render.** The phone app and the server logic live in one project, so there is one place to work and one thing to deploy.
+- **Postgres, managed by Render.** The proven default for related data: stores have visits, visits have entries.
+- **Cloudflare R2 for photos and audio.** Big files do not belong in the database; R2 is cheap and charges nothing to read files back.
+- **One speech-to-text service, behind a single function.** So it can be swapped later without touching the rest.
+- **The Claude API for the sorter.** It turns a transcribed note into structured, vendor-tagged entries.
+- **Microsoft Entra for sign-in, emailed magic links as the fallback.** Both sit behind one sign-in layer so switching moves no data.
+
+Pick popular, stable libraries over clever ones, and explain each choice to Hunter in one plain sentence.
+
+## Build order (Phase 1)
+
+Build in this order, one feature per session, and do not start the next until the current one passes its phone test.
+
+1. Blank app live on Render, with a Postgres database.
+2. Sign-in and roles (rep, manager, admin), restricted to D&Z email.
+3. Load the store list, geocode addresses, add store search.
+4. Check-in, using phone location to suggest the nearest store.
+5. Store brief, shown right after check-in.
+6. Talk-to-log and the confirm screen. This is the heart of the app.
+7. Photos, with an in-app camera and R2 storage.
+8. Auto follow-ups and fixes.
+9. Photo album with filters.
+10. Admin review queue.
+11. Works with no signal.
+12. Make it an installable home-screen app.
+
+Spend time unevenly on purpose: sessions 6 and 11 are where the project is won or lost. Before polishing any single feature, consider building a thin end-to-end slice (capture, transcribe, sort, confirm, save) so the hard middle is proven early.
+
+## The hard rules
+
+- **Secrets only in Render environment variables.** Never in code, GitHub, chat, email, or a document. If a key leaks, delete it and make a new one.
+- **Counts are computed in code, never by the AI.** The sorter tags and extracts; the database counts. The AI may draft words around a number but never produces the number.
+- **One vendor's data never appears in another vendor's report.** Enforce this with a vendor-id filter in every vendor-facing query, not with a prompt instruction.
+- **Save the rep's exact words with every entry.** Always. That is the provenance when anyone disputes what was said, and the raw material for improving the sorter.
+- **When the sorter is wrong, fix the instructions and the examples, never the stored result.** Fixing results is cosmetic and teaches the sorter nothing.
+- **Every vendor deck gets a human check before it is sent.** Build it and hold it for approval.
+- **One feature per session; merge only what Hunter tested on a phone.**
+- **Keep this file current.** When Hunter makes a decision (a new vendor, a new rule, a stack choice), add it to the decisions log below.
+
+## How to explain things to Hunter
+
+Plain English, no jargon. When you introduce a tool or a choice, say what it is in one sentence. End every feature by telling Hunter exactly how to test it on a phone.
+
+## Decisions log (keep this updated)
+
+- Account and repo owner: _to be set (Hunter or D&Z). See docs/PRE-BUILD-CHECKLIST.md_
+- Sign-in method: _to be set (Microsoft Entra or emailed magic links)_
+- Transcription service: _to be set (Whisper or Deepgram)_
+- Pilot reps: _to be set_

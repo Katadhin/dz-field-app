@@ -1,0 +1,82 @@
+:root {
+  --dz-purple: #37246B;
+  --dz-blue: #3FB3E2;
+  --dz-coral: #F0997B;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--dz-purple);
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+}
+
+.wordmark {
+  font-size: 72px;
+  font-weight: 700;
+  letter-spacing: -2px;
+  line-height: 1;
+}
+
+.app-name {
+  font-size: 22px;
+  font-weight: 500;
+  margin-top: 8px;
+  opacity: 0.95;
+}
+
+.tagline {
+  color: var(--dz-blue);
+  margin-top: 18px;
+  font-size: 16px;
+  letter-spacing: 0.4px;
+}
+
+.status {
+  margin-top: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  padding: 9px 15px;
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.dot.ok {
+  background: var(--dz-blue);
+}
+
+.dot.off {
+  background: var(--dz-coral);
+}

@@ -28,6 +28,10 @@ services:
       # keep /admin closed.
       - key: ADMIN_PASSCODE
         sync: false
+      # The Claude API key the sorter uses. Set it in the Render dashboard; it
+      # is never stored in the repo. The sort test stays closed until it is set.
+      - key: ANTHROPIC_API_KEY
+        sync: false
 
 databases:
   - name: dz-field-app-db

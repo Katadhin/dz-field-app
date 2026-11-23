@@ -40,11 +40,16 @@ export default async function AdminPage() {
       <header className="topbar">
         <span className="brand">d&amp;z</span>
         <span className="brand-sub">Admin</span>
-        <form method="post" action="/api/admin/logout" className="topbar-right">
-          <button className="link light" type="submit">
-            sign out
-          </button>
-        </form>
+        <nav className="topbar-right nav-row">
+          <a className="link light" href="/admin/sort-test">
+            sort test
+          </a>
+          <form method="post" action="/api/admin/logout">
+            <button className="link light" type="submit">
+              sign out
+            </button>
+          </form>
+        </nav>
       </header>
       <main className="content">
         <div className="admin-head">

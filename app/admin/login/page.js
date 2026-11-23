@@ -9,7 +9,7 @@ export default function AdminLogin({ searchParams }) {
     return (
       <div className="app">
         <header className="topbar">
-          <span className="brand">d&amp;z</span>
+          <span className="brand-chip"><img src="/dz-logo.png" alt="d&z" /></span>
           <span className="brand-sub">Admin</span>
         </header>
         <main className="content">

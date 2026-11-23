@@ -1,7 +1,7 @@
 // Minimal service worker: makes the app installable and loads its shell offline.
 // Captures are held in the page's own outbox (localStorage), not here.
-const CACHE = "dz-field-shell-v2";
-const SHELL = ["/", "/icon-192.png", "/manifest.webmanifest"];
+const CACHE = "dz-field-shell-v3";
+const SHELL = ["/", "/icon-192.png", "/dz-logo.png", "/manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {
   self.skipWaiting();

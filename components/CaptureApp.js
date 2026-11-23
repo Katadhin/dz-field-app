@@ -48,6 +48,7 @@ export default function CaptureApp() {
   const [repName, setRepName] = useState("");
   const [repInput, setRepInput] = useState("");
   const [editingRep, setEditingRep] = useState(false);
+  const [view, setView] = useState("cover");
 
   const [store, setStore] = useState("");
   const [note, setNote] = useState("");
@@ -202,6 +203,36 @@ export default function CaptureApp() {
     setInstallEvent(null);
   }
 
+  if (view === "cover") {
+    return (
+      <div className="cover">
+        <div aria-hidden="true" className="cover-blob cover-blob-a" />
+        <div aria-hidden="true" className="cover-blob cover-blob-b" />
+        <div className="cover-top">
+          <span className="cover-logo">
+            <img src="/dz-logo.png" alt="d&z" />
+          </span>
+          <span className="cover-tagline">every cart. every aisle.</span>
+        </div>
+        <div className="cover-mid">
+          <svg className="cover-cart" width="74" height="74" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M3 5h2l1.8 10.5h10.2l1.8-7.5H6.4" />
+            <circle cx="9" cy="20" r="1.3" />
+            <circle cx="17" cy="20" r="1.3" />
+          </svg>
+          <h1 className="cover-head">Walk the store.<br />Talk your note.<br />Done.</h1>
+          <p className="cover-sub">Every visit logged in under a minute, even with no signal.</p>
+        </div>
+        <div className="cover-bottom">
+          <button className="cover-start" onClick={() => setView("app")}>
+            Start a visit
+          </button>
+          <span className="cover-foot">Installed on your phone · works offline</span>
+        </div>
+      </div>
+    );
+  }
+
   if (editingRep) {
     return (
       <div className="app">
@@ -326,7 +357,7 @@ export default function CaptureApp() {
 function Topbar() {
   return (
     <header className="topbar">
-      <span className="brand">d&amp;z</span>
+      <span className="brand-chip"><img src="/dz-logo.png" alt="d&z" /></span>
       <span className="brand-sub">Field</span>
     </header>
   );

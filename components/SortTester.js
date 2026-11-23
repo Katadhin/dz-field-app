@@ -49,7 +49,7 @@ export default function SortTester({ hasKey }) {
   return (
     <div className="app">
       <header className="topbar">
-        <span className="brand">d&amp;z</span>
+        <span className="brand-chip"><img src="/dz-logo.png" alt="d&z" /></span>
         <span className="brand-sub">Sort test</span>
         <a className="link light topbar-right" href="/admin">
           captures

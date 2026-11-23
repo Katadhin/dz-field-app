@@ -38,7 +38,7 @@ export default async function AdminPage() {
   return (
     <div className="app">
       <header className="topbar">
-        <span className="brand">d&amp;z</span>
+        <span className="brand-chip"><img src="/dz-logo.png" alt="d&z" /></span>
         <span className="brand-sub">Admin</span>
         <nav className="topbar-right nav-row">
           <a className="link light" href="/admin/sort-test">

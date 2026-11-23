@@ -3,11 +3,16 @@ import { checkPasscode, makeAdminToken, adminEnabled, ADMIN_COOKIE, ADMIN_MAX_AG
 
 export const dynamic = "force-dynamic";
 
-export async function POST(req) {
-  const origin = new URL(req.url).origin;
+// Redirect with a relative Location so the browser resolves it against the
+// public URL. Building an absolute URL from req.url points at Render's internal
+// host (localhost:10000), which the browser cannot open.
+function redirectTo(path) {
+  return new NextResponse(null, { status: 303, headers: { Location: path } });
+}
 
+export async function POST(req) {
   if (!adminEnabled()) {
-    return NextResponse.redirect(new URL("/admin", origin), 303);
+    return redirectTo("/admin");
   }
 
   let passcode = "";
@@ -19,10 +24,10 @@ export async function POST(req) {
   }
 
   if (!checkPasscode(passcode)) {
-    return NextResponse.redirect(new URL("/admin/login?error=1", origin), 303);
+    return redirectTo("/admin/login?error=1");
   }
 
-  const res = NextResponse.redirect(new URL("/admin", origin), 303);
+  const res = redirectTo("/admin");
   res.cookies.set(ADMIN_COOKIE, makeAdminToken(), {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",

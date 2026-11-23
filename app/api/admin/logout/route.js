@@ -3,9 +3,9 @@ import { ADMIN_COOKIE } from "../../../../lib/adminAuth";
 
 export const dynamic = "force-dynamic";
 
-export async function POST(req) {
-  const origin = new URL(req.url).origin;
-  const res = NextResponse.redirect(new URL("/admin/login", origin), 303);
+export async function POST() {
+  // Relative Location so the browser resolves it against the public URL.
+  const res = new NextResponse(null, { status: 303, headers: { Location: "/admin/login" } });
   res.cookies.set(ADMIN_COOKIE, "", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
